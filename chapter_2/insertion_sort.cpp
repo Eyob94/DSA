@@ -11,15 +11,14 @@ int main()
     {
         int key = arr[i];
 
-        for (int j = i - 1; j >= 0; j--)
-        {
-            if (key < arr[j])
-            {
-                arr[j + 1] = arr[j];
+        int j = i - 1;
 
-                arr[j] = key;
-            }
+        while (j >= 0 & arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j--;
         }
+        arr[j + 1] = key;
     }
     for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
     {
