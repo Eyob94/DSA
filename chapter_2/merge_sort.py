@@ -38,7 +38,7 @@ def compare_merge(a, b, arr):
     return (arr)
 
 
-arr = [3, 2, 1]
+arr = [4, 3, 2, 1, 4, 1, 10, 6, 5, 12, 11, 20, 16, 15]
 merge_split(arr)
 
 print(arr)

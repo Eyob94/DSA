@@ -2,60 +2,83 @@
 #include <cmath>
 using namespace std;
 
+void merge_split(int *, int);
+void compare_merge(int *, int, int *, int, int *);
+
 int main()
 {
-    int arr[] = {3, 2, 1};
-    int length = sizeof(arr) / sizeof(arr[0]);
-    int mid = floor(length / 2);
 
-    int L[mid];
-    int R[length - mid];
+    int x[] = {3, 1, 4, 2, 6, 10, 4, 20, 15, 12, 26, 19, 32};
+
+    merge_split(x, sizeof(x) / sizeof(x[0]));
+
+    for (int i = 0; i < sizeof(x) / sizeof(x[0]); i++)
+    {
+        cout << x[i] << ",";
+    }
+    cout << endl;
+}
+
+void merge_split(int arr[], int n)
+{
+
+    int mid = floor(n / 2);
+    int l[mid];
+    int r[n - mid];
 
     for (int i = 0; i < mid; i++)
     {
-        L[i] = arr[i];
-    }
-    for (int j = 0; j < length - mid; j++)
-    {
-        R[j] = arr[mid + j];
+        l[i] = arr[i];
     }
 
+    for (int i = mid; i < n; i++)
+    {
+        r[i - mid] = arr[i];
+    }
+
+    if (n <= 1)
+    {
+        return;
+    }
+
+    merge_split(l, sizeof(l) / sizeof(l[0]));
+    merge_split(r, sizeof(r) / sizeof(r[0]));
+
+    compare_merge(l, sizeof(l) / sizeof(l[0]), r, sizeof(r) / sizeof(r[0]), arr);
+}
+
+void compare_merge(int a[], int a_size, int b[], int b_size, int arr[])
+{
     int i = 0;
     int j = 0;
     int k = 0;
 
-    while (i < mid & j < length - mid)
+    while (i < a_size & j < b_size)
     {
-
-        if (L[i] <= R[j])
+        if (a[i] <= b[j])
         {
-            arr[k] = L[i];
-            i++;
+            arr[k] = a[i];
+            i += 1;
         }
         else
         {
-            arr[k] = R[j];
-            j++;
+            arr[k] = b[j];
+            j += 1;
         }
-        k++;
+        k += 1;
     }
 
-    while (i < mid)
+    while (i < a_size)
     {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-    while (j < length - mid)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
+        arr[k] = a[i];
+        i += 1;
+        k += 1;
     }
 
-    for (int i = 0; i < length; i++)
+    while (j < b_size)
     {
-        cout << arr[i] << ",";
+        arr[k] = b[j];
+        j += 1;
+        k += 1;
     }
-    cout << endl;
 }
